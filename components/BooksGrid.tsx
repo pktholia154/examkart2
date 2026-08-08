@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { BookItem } from '@/lib/types';
-import { BookOpen, CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, Heart, Star, Plus } from 'lucide-react';
 
 interface BooksGridProps {
   books: BookItem[];
@@ -24,7 +24,7 @@ export function BooksGrid({
   }
 
   return (
-    <div className="px-4 py-3 space-y-2.5">
+    <div className="px-2 sm:px-4 py-3 space-y-2.5">
       {/* Section Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -44,7 +44,7 @@ export function BooksGrid({
       </div>
 
       {/* Grid of books */}
-      <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-3">
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-4 md:gap-6">
         {books.map((book) => {
           const isUnlocked = unlockedBookIds.has(book.id);
 
@@ -52,64 +52,83 @@ export function BooksGrid({
             <div
               key={book.id}
               onClick={() => onBookClick(book)}
-              className="group bg-white rounded-lg border border-slate-300 p-2 flex flex-col justify-between hover:shadow-md transition-all cursor-pointer"
+              className="group flex flex-col justify-between cursor-pointer"
             >
               <div>
                 {/* Book Cover Box */}
-                <div className="relative aspect-[3/4] rounded-md bg-slate-100 overflow-hidden mb-2 flex items-center justify-center border border-slate-200">
+                <div className="relative aspect-square rounded-2xl bg-[#FAFAFA] flex items-center justify-center p-4 sm:p-6 mb-3">
                   {book.cover ? (
                     /* eslint-disable-next-line @next/next/no-img-element */
                     <img
                       src={book.cover}
                       alt={book.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-300"
+                      style={{ aspectRatio: '2/3' }}
                       loading="lazy"
                     />
                   ) : (
-                    <div className="p-3 text-center">
-                      <span className="text-[10px] sm:text-xs font-medium text-slate-500">Cover</span>
+                    <div className="p-3 text-center border border-slate-200 bg-white w-full h-full flex items-center justify-center rounded-sm" style={{ aspectRatio: '2/3' }}>
+                      <span className="text-[10px] sm:text-xs font-medium text-slate-400">Cover</span>
                     </div>
                   )}
+                  
+                  <button className="absolute top-2 right-2 p-1.5 rounded-full bg-white shadow-sm text-slate-400 hover:text-rose-500 transition-colors">
+                    <Heart className="w-3 h-3 sm:w-4 sm:h-4" />
+                  </button>
 
                   {isUnlocked && (
-                    <div className="absolute top-1 right-1 bg-secondary text-white text-[9px] font-bold px-1 py-0.5 rounded shadow-xs flex items-center gap-0.5">
-                      <CheckCircle2 className="w-2 h-2" />
+                    <div className="absolute top-2 left-2 bg-green-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-sm flex items-center gap-0.5">
+                      <CheckCircle2 className="w-3 h-3" />
                       Owned
                     </div>
                   )}
                 </div>
 
-                {/* Title & Subtitle */}
-                <h3 className="text-[11px] sm:text-xs font-semibold text-slate-800 line-clamp-2 leading-tight group-hover:text-[#1976D2] transition-colors min-h-[2rem]">
-                  {book.title}
-                </h3>
-                <p className="text-[9px] sm:text-[10px] text-slate-500 font-medium mb-2 truncate mt-1">
-                  {book.subtitle || book.edition || 'Print + E-Book'}
-                </p>
-              </div>
-
-              {/* Pricing & Add/Read Button */}
-              <div className="pt-2 border-t border-slate-200 mt-auto">
-                <div className="flex items-baseline gap-1 mb-2">
-                  <span className="text-[13px] sm:text-sm font-bold text-[#1a237e]">
-                    ₹{book.buy_price}
+                {/* Pricing Info */}
+                <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
+                  <span className="text-[13px] sm:text-sm font-extrabold text-black">
+                    ${book.buy_price}
                   </span>
                   {book.list_price > book.buy_price && (
-                    <span className="text-[9px] sm:text-[10px] text-slate-400 line-through">
-                      ₹{book.list_price}
-                    </span>
+                    <>
+                      <span className="text-[10px] sm:text-xs font-medium text-slate-400 line-through">
+                        ${book.list_price}
+                      </span>
+                      <span className="text-[10px] sm:text-xs font-semibold text-teal-600">
+                        ({Math.round(((book.list_price - book.buy_price) / book.list_price) * 100)}%)
+                      </span>
+                    </>
                   )}
                 </div>
 
+                {/* Title & Subtitle */}
+                <h3 className="text-xs sm:text-sm font-semibold text-black line-clamp-2 leading-tight group-hover:text-blue-600 transition-colors mb-1">
+                  {book.title}
+                </h3>
+                <p className="text-[10px] sm:text-xs text-slate-500 font-medium line-clamp-1">
+                  Examkart
+                </p>
+              </div>
+
+              {/* Rating & Add/Read Button */}
+              <div className="flex items-center justify-between mt-3">
+                <div className="flex items-center gap-0.5 text-[11px] font-medium text-slate-600">
+                  0 <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
+                </div>
+                
                 <button
                   onClick={(e) => onAddClick(book, e)}
-                  className={`w-full py-1 rounded-[4px] font-semibold text-[10px] sm:text-xs tracking-wide border transition text-center shadow-xs ${
+                  className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center transition shadow-sm ${
                     isUnlocked
-                      ? 'border-secondary bg-secondary-light text-secondary hover:bg-secondary/20'
-                      : 'border-[#1a237e] text-[#1a237e] bg-white hover:bg-slate-50'
+                      ? 'bg-blue-600 text-white hover:bg-blue-700'
+                      : 'bg-[#339900] text-white hover:bg-[#287a00]'
                   }`}
                 >
-                  {isUnlocked ? 'READ PDF' : 'ADD'}
+                  {isUnlocked ? (
+                     <CheckCircle2 className="w-4 h-4" />
+                  ) : (
+                     <Plus className="w-4 h-4" />
+                  )}
                 </button>
               </div>
             </div>

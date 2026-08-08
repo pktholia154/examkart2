@@ -41,11 +41,16 @@ export function BookDetailsPage({
   const [isReaderOpen, setIsReaderOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  const [readerFormat, setReaderFormat] = useState<'pdf' | 'html'>('pdf');
+
   const publisher = book.publisher || 'Mocktime Publication';
   const rating = book.rating || 4.8;
   const reviewCount = book.review_count || 128;
   const rentPrice = book.rent_price || Math.round(book.buy_price * 0.22);
   const mcqCount = book.mcq_count || '2400+';
+
+  const hasHtml = Boolean(book.html_file || (book as any).htmlurl);
+  const hasPdf = Boolean(book.pdf_file || (book as any).pdfurl || book.sample_file || (book as any).sampleurl);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -164,21 +169,54 @@ export function BookDetailsPage({
               <span>{publisher}</span>
             </div>
 
-            {/* Price display */}
-            <div className="pt-2 flex items-baseline gap-2">
-              <span className="text-lg sm:text-2xl font-bold text-slate-900">
-                ₹{book.buy_price}
-              </span>
-              {book.list_price > book.buy_price && (
-                <>
-                  <span className="text-xs sm:text-sm text-slate-400 line-through">
-                    ₹{book.list_price}
-                  </span>
-                  <span className="text-[10px] sm:text-xs font-semibold text-green-700 bg-green-50 px-1.5 py-0.5 rounded">
-                    {Math.round((1 - book.buy_price / book.list_price) * 100)}% OFF
-                  </span>
-                </>
-              )}
+            {/* Price & Formats display */}
+            <div className="pt-2 flex flex-col gap-2">
+              <div className="flex items-baseline gap-2">
+                <span className="text-lg sm:text-2xl font-bold text-slate-900">
+                  ₹{book.buy_price}
+                </span>
+                {book.list_price > book.buy_price && (
+                  <>
+                    <span className="text-xs sm:text-sm text-slate-400 line-through">
+                      ₹{book.list_price}
+                    </span>
+                    <span className="text-[10px] sm:text-xs font-semibold text-green-700 bg-green-50 px-1.5 py-0.5 rounded">
+                      {Math.round((1 - book.buy_price / book.list_price) * 100)}% OFF
+                    </span>
+                  </>
+                )}
+              </div>
+
+              {/* Format selection pills */}
+              <div className="flex items-center gap-1.5 pt-1">
+                <span className="text-[10px] font-bold text-slate-400 uppercase">Available Formats:</span>
+                {hasPdf && (
+                  <button
+                    onClick={() => setReaderFormat('pdf')}
+                    className={`px-2 py-0.5 rounded text-[10px] font-bold flex items-center gap-1 border transition ${
+                      readerFormat === 'pdf'
+                        ? 'bg-[#1976D2] text-white border-[#1976D2]'
+                        : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'
+                    }`}
+                  >
+                    <FileText className="w-3 h-3" />
+                    <span>PDF</span>
+                  </button>
+                )}
+                {hasHtml && (
+                  <button
+                    onClick={() => setReaderFormat('html')}
+                    className={`px-2 py-0.5 rounded text-[10px] font-bold flex items-center gap-1 border transition ${
+                      readerFormat === 'html'
+                        ? 'bg-[#1976D2] text-white border-[#1976D2]'
+                        : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'
+                    }`}
+                  >
+                    <Globe className="w-3 h-3" />
+                    <span>HTML / EPUB</span>
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -363,6 +401,7 @@ export function BookDetailsPage({
         <BookReaderModal
           book={book}
           isUnlocked={isUnlocked}
+          initialFormat={readerFormat}
           onClose={() => setIsReaderOpen(false)}
           onBuy={() => {
             setIsReaderOpen(false);

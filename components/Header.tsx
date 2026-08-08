@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Bell, Database, User, LogOut, Check } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 
 interface HeaderProps {
   userEmail?: string | null;
@@ -52,27 +52,6 @@ export function Header({
 
       {/* Action Controls */}
       <div className="flex items-center gap-2 sm:gap-3">
-        {/* Seed Database Button */}
-        <button
-          id="seed-db-btn"
-          onClick={onOpenSeedModal}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-tertiary-light hover:bg-tertiary/20 text-slate-900 border border-tertiary/40 text-xs font-semibold transition active-press cursor-pointer"
-          title="Seed Sample Data into Firebase DB 'examkart'"
-        >
-          <Database className="w-3.5 h-3.5 text-secondary" />
-          <span className="hidden sm:inline">Seed DB</span>
-        </button>
-
-        {/* Notifications Icon */}
-        <button 
-          id="notifications-btn"
-          className="relative p-2 rounded-xl text-slate-600 hover:bg-slate-100 transition active-press cursor-pointer"
-          aria-label="Notifications"
-        >
-          <Bell className="w-5 h-5" />
-          <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-tertiary rounded-full ring-2 ring-white"></span>
-        </button>
-
         {/* Google Sign-In Button or User Profile at top right corner */}
         {isGoogleUser ? (
           <div className="relative">

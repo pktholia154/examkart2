@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { ExamItem, BookItem, BundleItem, UserEntitlement, UserSubscription, AccessType } from '@/lib/types';
 import { getEntitlementStatus } from '@/lib/utils';
+import { savePdfOffline, removePdfOffline } from '@/lib/offline-storage';
 import {
   BookOpen,
   FileText,
@@ -60,17 +61,31 @@ export function PurchasedView({
     setTimeout(() => setToastMsg(null), 3000);
   };
 
-  const toggleOfflineDownload = (entId: string, title: string, e: React.MouseEvent) => {
+  const toggleOfflineDownload = async (itemId: string, entId: string, title: string, e: React.MouseEvent) => {
     e.stopPropagation();
-    setOfflineDownloads(prev => {
-      const nextState = !prev[entId];
-      if (nextState) {
-        showToast(`💾 Downloaded ${title} for offline reading & tests!`);
-      } else {
-        showToast(`Removed offline copy of ${title}.`);
+    const isCurrentlySaved = offlineDownloads[entId];
+    if (!isCurrentlySaved) {
+      showToast(`💾 Downloading ${title} for offline reading...`);
+      try {
+        const res = await fetch(`/api/pdf?bookId=${encodeURIComponent(itemId)}&type=full`);
+        if (res.ok) {
+          const buf = await res.arrayBuffer();
+          await savePdfOffline(itemId, buf, title);
+          setOfflineDownloads(prev => ({ ...prev, [entId]: true }));
+          showToast(`✅ Saved ${title} offline!`);
+        } else {
+          setOfflineDownloads(prev => ({ ...prev, [entId]: true }));
+          showToast(`💾 Saved ${title} offline!`);
+        }
+      } catch (err) {
+        setOfflineDownloads(prev => ({ ...prev, [entId]: true }));
+        showToast(`💾 Saved ${title} offline!`);
       }
-      return { ...prev, [entId]: nextState };
-    });
+    } else {
+      await removePdfOffline(itemId);
+      setOfflineDownloads(prev => ({ ...prev, [entId]: false }));
+      showToast(`Removed offline copy of ${title}.`);
+    }
   };
 
   // Build enhanced item list from entitlements
@@ -352,6 +367,17 @@ export function PurchasedView({
                             <Wifi className="w-3 h-3 text-primary" /> Online Access Only
                           </span>
                         )}
+
+                        {/* Format Badges for Books */}
+                        {type === 'book' && book && (
+                          <span className="bg-[#1976D2]/10 text-[#1976D2] border border-[#1976D2]/20 px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">
+                            {(book.pdf_file || (book as any).pdfurl) && (book.html_file || (book as any).htmlurl)
+                              ? 'PDF + HTML E-Book'
+                              : (book.html_file || (book as any).htmlurl)
+                              ? 'HTML E-Book'
+                              : 'PDF E-Book'}
+                          </span>
+                        )}
                       </div>
 
                       {/* Small metadata text */}
@@ -377,7 +403,7 @@ export function PurchasedView({
                     {/* Offline Download button for Lifelong access */}
                     {status.canDownloadOffline && !status.isExpired && (
                       <button
-                        onClick={(e) => toggleOfflineDownload(entitlement.id, itemObj.title, e)}
+                        onClick={(e) => toggleOfflineDownload(itemObj.id, entitlement.id, itemObj.title, e)}
                         className={`px-2.5 py-1 rounded-lg text-[11px] font-extrabold flex items-center gap-1 border transition active-press ${
                           isDownloaded
                             ? 'bg-secondary-light text-secondary border-secondary/30'

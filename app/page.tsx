@@ -369,6 +369,16 @@ export default function HomePage() {
                 onEnrollClick={handleEnrollBundle}
                 onViewAllClick={() => setActiveNavTab('courses')}
               />
+
+              {/* Seed Data Button at the bottom */}
+              <div className="px-4 py-8 flex justify-center">
+                <button
+                  onClick={() => setIsSeedModalOpen(true)}
+                  className="px-6 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm transition-colors border border-slate-300"
+                >
+                  Seed Firebase Database
+                </button>
+              </div>
             </main>
           )}
 
