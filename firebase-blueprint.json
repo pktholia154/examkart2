@@ -1,0 +1,140 @@
+{
+  "entities": {
+    "ExamCategory": {
+      "title": "ExamCategory",
+      "description": "Category under which exams, books and test-series are listed",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "slug": { "type": "string" },
+        "seo_description": { "type": "string" },
+        "isActive": { "type": "boolean" },
+        "display_order": { "type": "integer" }
+      },
+      "required": ["id", "name", "slug", "isActive", "display_order"]
+    },
+    "ExamItem": {
+      "title": "ExamItem",
+      "description": "An individual examination course containing test series",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "slug": { "type": "string" },
+        "seo_description": { "type": "string" },
+        "full_description": { "type": "string" },
+        "category": { "type": "string" },
+        "tags": { "type": "array" },
+        "isActive": { "type": "boolean" },
+        "buy_price": { "type": "integer" },
+        "list_price": { "type": "integer" },
+        "cover": { "type": "string" },
+        "classes_count": { "type": "integer" },
+        "mocks_count": { "type": "integer" }
+      },
+      "required": ["id", "title", "category", "isActive", "buy_price", "list_price"]
+    },
+    "BookItem": {
+      "title": "BookItem",
+      "description": "A study guide or textbook available for digital reading",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "slug": { "type": "string" },
+        "seo_description": { "type": "string" },
+        "full_description": { "type": "string" },
+        "category": { "type": "string" },
+        "tags": { "type": "array" },
+        "isActive": { "type": "boolean" },
+        "buy_price": { "type": "integer" },
+        "list_price": { "type": "integer" },
+        "pdf_file": { "type": "string" },
+        "html_file": { "type": "string" },
+        "cover": { "type": "string" },
+        "sample_file": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "edition": { "type": "string" }
+      },
+      "required": ["id", "title", "category", "isActive", "buy_price", "list_price"]
+    },
+    "BundleItem": {
+      "title": "BundleItem",
+      "description": "A comprehensive purchase package containing exams and/or books",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "slug": { "type": "string" },
+        "seo_description": { "type": "string" },
+        "full_description": { "type": "string" },
+        "category": { "type": "string" },
+        "tags": { "type": "array" },
+        "isActive": { "type": "boolean" },
+        "buy_price": { "type": "integer" },
+        "list_price": { "type": "integer" },
+        "cover": { "type": "string" },
+        "included_items": { "type": "array" },
+        "badge": { "type": "string" },
+        "logoText": { "type": "string" }
+      },
+      "required": ["id", "title", "category", "isActive", "buy_price", "list_price", "included_items"]
+    },
+    "UserEntitlement": {
+      "title": "UserEntitlement",
+      "description": "Record granting access to a specific exam or book to a user",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "collection": { "type": "string" },
+        "item_id": { "type": "string" },
+        "category": { "type": "string" },
+        "granted_via": { "type": "string" },
+        "purchased_at": { "type": "string" }
+      },
+      "required": ["id", "collection", "item_id", "category", "granted_via", "purchased_at"]
+    },
+    "PurchaseRecord": {
+      "title": "PurchaseRecord",
+      "description": "Transaction log for user purchases",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "user_id": { "type": "string" },
+        "item_type": { "type": "string" },
+        "item_id": { "type": "string" },
+        "item_title": { "type": "string" },
+        "amount": { "type": "integer" },
+        "created_at": { "type": "string" }
+      },
+      "required": ["id", "user_id", "item_type", "item_id", "item_title", "amount", "created_at"]
+    }
+  },
+  "firestore": {
+    "exam_categories": {
+      "schema": "ExamCategory",
+      "description": "Global exam categories"
+    },
+    "exams": {
+      "schema": "ExamItem",
+      "description": "Global test series courses"
+    },
+    "books": {
+      "schema": "BookItem",
+      "description": "Global books and study guides"
+    },
+    "bundles": {
+      "schema": "BundleItem",
+      "description": "Global promotional purchase bundles"
+    },
+    "users/{userId}/entitlements": {
+      "schema": "UserEntitlement",
+      "description": "Entitlements owned by a specific user"
+    },
+    "purchases": {
+      "schema": "PurchaseRecord",
+      "description": "Transaction history log"
+    }
+  }
+}

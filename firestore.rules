@@ -1,0 +1,38 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Exam categories (public read and write for sample data seeding)
+    match /exam_categories/{categoryId} {
+      allow read, write: if true;
+    }
+
+    // Exams (public read and write for sample data seeding)
+    match /exams/{examId} {
+      allow read, write: if true;
+    }
+
+    // Books (public read and write for sample data seeding)
+    match /books/{bookId} {
+      allow read, write: if true;
+    }
+
+    // Bundles (public read and write for sample data seeding)
+    match /bundles/{bundleId} {
+      allow read, write: if true;
+    }
+
+    // User data and entitlements (accessible for authenticated & guest demo accounts)
+    match /users/{userId} {
+      allow read, write: if true;
+
+      match /entitlements/{entId} {
+        allow read, write: if true;
+      }
+    }
+
+    // Purchases
+    match /purchases/{purchaseId} {
+      allow read, write: if true;
+    }
+  }
+}
