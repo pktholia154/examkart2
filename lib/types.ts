@@ -89,7 +89,7 @@ export type AccessType = 'lifetime' | 'rent' | 'subscription';
 
 export interface UserEntitlement {
   id: string;
-  collection: 'exams' | 'books';
+  collection: 'exams' | 'books' | 'bundles';
   item_id: string;
   category: string;
   granted_via: string; // "direct", bundle_id, or "subscription"

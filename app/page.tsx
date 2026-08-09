@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useTransition } from 'react';
+import Link from 'next/link';
 import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
 import { auth, signInWithGoogle, signOutUser } from '@/lib/firebase';
 import { Header } from '@/components/Header';
@@ -20,6 +21,7 @@ import { CheckoutModal } from '@/components/CheckoutModal';
 import { RenewValidityModal } from '@/components/RenewValidityModal';
 import { SeedDataDialog } from '@/components/SeedDataDialog';
 import { BottomNav } from '@/components/BottomNav';
+import { Shield, FileText, RotateCw, Mail, MapPin, Globe } from 'lucide-react';
 
 import { 
   ExamCategory, 
@@ -165,17 +167,25 @@ export default function HomePage() {
   };
 
   // Create unlocked ID sets for O(1) checks
-  const unlockedExamIds = new Set(
-    entitlements
-      .filter(e => e.collection === 'exams')
-      .map(e => e.item_id)
-  );
+  const unlockedExamIds = new Set<string>();
+  const unlockedBookIds = new Set<string>();
 
-  const unlockedBookIds = new Set(
-    entitlements
-      .filter(e => e.collection === 'books')
-      .map(e => e.item_id)
-  );
+  if (userSubscription?.active) {
+    exams.forEach(e => unlockedExamIds.add(e.id));
+    books.forEach(b => unlockedBookIds.add(b.id));
+  } else {
+    entitlements.forEach(e => {
+      if (e.collection === 'exams') unlockedExamIds.add(e.item_id);
+      if (e.collection === 'books') unlockedBookIds.add(e.item_id);
+      if (e.collection === 'bundles') {
+        const bun = bundles.find(b => b.id === e.item_id);
+        bun?.included_items.forEach(inc => {
+          if (inc.collection === 'exams') unlockedExamIds.add(inc.id);
+          if (inc.collection === 'books') unlockedBookIds.add(inc.id);
+        });
+      }
+    });
+  }
 
   const unlockedBundleIds = new Set<string>();
   // Check if a bundle's items are unlocked
@@ -370,11 +380,153 @@ export default function HomePage() {
                 onViewAllClick={() => setActiveNavTab('courses')}
               />
 
+              {/* QUICK LINKS & POLICIES FOOTER */}
+              <div className="px-4 pt-6 pb-12 border-t border-slate-200 space-y-4">
+                <div>
+                  <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">QUICK LINKS & POLICIES</h3>
+                  <p className="text-xs text-slate-500">Legal info, support, and contact for Exam Kart</p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <Link href="/privacy-policy" className="p-3.5 bg-slate-50 hover:bg-slate-100 rounded-xl border border-slate-200/80 transition flex items-start gap-3 group">
+                    <div className="p-2 bg-white rounded-lg border border-slate-200 text-blue-600 group-hover:scale-105 transition">
+                      <Shield className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition">Privacy Policy</h4>
+                      <p className="text-[11px] text-slate-500">Data protection guidelines</p>
+                    </div>
+                  </Link>
+
+                  <Link href="/terms-and-conditions" className="p-3.5 bg-slate-50 hover:bg-slate-100 rounded-xl border border-slate-200/80 transition flex items-start gap-3 group">
+                    <div className="p-2 bg-white rounded-lg border border-slate-200 text-blue-600 group-hover:scale-105 transition">
+                      <FileText className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition">Terms & Conditions</h4>
+                      <p className="text-[11px] text-slate-500">User license agreement</p>
+                    </div>
+                  </Link>
+
+                  <Link href="/refund-and-cancellation" className="p-3.5 bg-slate-50 hover:bg-slate-100 rounded-xl border border-slate-200/80 transition flex items-start gap-3 group">
+                    <div className="p-2 bg-white rounded-lg border border-slate-200 text-emerald-600 group-hover:scale-105 transition">
+                      <RotateCw className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-900 group-hover:text-emerald-600 transition">Refund Policy</h4>
+                      <p className="text-[11px] text-slate-500">Returns & cancellations</p>
+                    </div>
+                  </Link>
+
+                  <Link href="/contact-us" className="p-3.5 bg-slate-50 hover:bg-slate-100 rounded-xl border border-slate-200/80 transition flex items-start gap-3 group">
+                    <div className="p-2 bg-white rounded-lg border border-slate-200 text-purple-600 group-hover:scale-105 transition">
+                      <Mail className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-900 group-hover:text-purple-600 transition">Contact Us</h4>
+                      <p className="text-[11px] text-slate-500">Support & inquiries</p>
+                    </div>
+                  </Link>
+                </div>
+
+                {/* Legal Entity Details Box */}
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2 text-xs text-slate-700">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-semibold text-slate-900">
+                    <span>Legal Name: <span className="font-normal text-slate-700">Pardeep Kumar</span></span>
+                    <span className="text-slate-300">|</span>
+                    <span>Brand: <span className="font-normal text-slate-700">Exam Kart</span></span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Mail className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                    <span>Email: <a href="mailto:support@exam-kart.com" className="text-blue-600 underline font-medium">support@exam-kart.com</a></span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MapPin className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                    <span>Address: 282, Sector 4, Hisar Haryana 125001</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Globe className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                    <span>Web: <a href="https://exam-kart.com/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline font-medium">https://exam-kart.com/</a></span>
+                  </div>
+                </div>
+              </div>
+
+              {/* QUICK LINKS & POLICIES FOOTER */}
+              <div className="px-4 pt-6 pb-6 border-t border-slate-200 space-y-4">
+                <div>
+                  <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">QUICK LINKS & POLICIES</h3>
+                  <p className="text-xs text-slate-500">Legal info, support, and contact for Exam Kart</p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <Link href="/privacy-policy" className="p-3.5 bg-slate-50 hover:bg-slate-100 rounded-xl border border-slate-200/80 transition flex items-start gap-3 group">
+                    <div className="p-2 bg-white rounded-lg border border-slate-200 text-blue-600 group-hover:scale-105 transition">
+                      <Shield className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition">Privacy Policy</h4>
+                      <p className="text-[11px] text-slate-500">Data protection guidelines</p>
+                    </div>
+                  </Link>
+
+                  <Link href="/terms-and-conditions" className="p-3.5 bg-slate-50 hover:bg-slate-100 rounded-xl border border-slate-200/80 transition flex items-start gap-3 group">
+                    <div className="p-2 bg-white rounded-lg border border-slate-200 text-blue-600 group-hover:scale-105 transition">
+                      <FileText className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition">Terms & Conditions</h4>
+                      <p className="text-[11px] text-slate-500">User license agreement</p>
+                    </div>
+                  </Link>
+
+                  <Link href="/refund-and-cancellation" className="p-3.5 bg-slate-50 hover:bg-slate-100 rounded-xl border border-slate-200/80 transition flex items-start gap-3 group">
+                    <div className="p-2 bg-white rounded-lg border border-slate-200 text-emerald-600 group-hover:scale-105 transition">
+                      <RotateCw className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-900 group-hover:text-emerald-600 transition">Refund Policy</h4>
+                      <p className="text-[11px] text-slate-500">Returns & cancellations</p>
+                    </div>
+                  </Link>
+
+                  <Link href="/contact-us" className="p-3.5 bg-slate-50 hover:bg-slate-100 rounded-xl border border-slate-200/80 transition flex items-start gap-3 group">
+                    <div className="p-2 bg-white rounded-lg border border-slate-200 text-purple-600 group-hover:scale-105 transition">
+                      <Mail className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-900 group-hover:text-purple-600 transition">Contact Us</h4>
+                      <p className="text-[11px] text-slate-500">Support & inquiries</p>
+                    </div>
+                  </Link>
+                </div>
+
+                {/* Legal Entity Details Box */}
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2 text-xs text-slate-700">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-semibold text-slate-900">
+                    <span>Legal Name: <span className="font-normal text-slate-700">Pardeep Kumar</span></span>
+                    <span className="text-slate-300">|</span>
+                    <span>Brand: <span className="font-normal text-slate-700">Exam Kart</span></span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Mail className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                    <span>Email: <a href="mailto:support@exam-kart.com" className="text-blue-600 underline font-medium">support@exam-kart.com</a></span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MapPin className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                    <span>Address: 282, Sector 4, Hisar Haryana 125001</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Globe className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                    <span>Web: <a href="https://exam-kart.com/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline font-medium">https://exam-kart.com/</a></span>
+                  </div>
+                </div>
+              </div>
+
               {/* Seed Data Button at the bottom */}
-              <div className="px-4 py-8 flex justify-center">
+              <div className="px-4 pb-12 flex justify-center">
                 <button
                   onClick={() => setIsSeedModalOpen(true)}
-                  className="px-6 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm transition-colors border border-slate-300"
+                  className="px-6 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-colors border border-slate-300"
                 >
                   Seed Firebase Database
                 </button>
