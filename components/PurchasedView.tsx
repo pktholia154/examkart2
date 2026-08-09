@@ -139,41 +139,41 @@ export function PurchasedView({
       )}
 
       {/* Clean Monochrome Page Header (No Banner) */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-200">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b-2 border-slate-200">
         <div>
-          <h1 className="text-base sm:text-lg font-bold text-slate-900">Purchased Library</h1>
-          <p className="text-xs text-slate-500">{purchasedItems.length} purchased item(s)</p>
+          <h1 className="text-base sm:text-xl font-extrabold text-slate-950">Purchased Library</h1>
+          <p className="text-xs font-bold text-slate-700">{purchasedItems.length} purchased item(s)</p>
         </div>
         <button
           onClick={onGetSubscription}
-          className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer self-start sm:self-auto border border-slate-900 transition active-press"
+          className="px-3.5 py-2 bg-[#1976D2] hover:bg-[#1565C0] text-white rounded-xl text-xs font-black flex items-center justify-center gap-1.5 cursor-pointer self-start sm:self-auto border-2 border-blue-700 transition active-press shadow-xs"
         >
-          <Crown className="w-3.5 h-3.5" />
+          <Crown className="w-4 h-4 fill-amber-300 text-amber-300" />
           <span>{userSubscription?.active ? 'Subscription Active' : 'Get Monthly Pass • ₹199/mo'}</span>
         </button>
       </div>
 
-      {/* Search & Neutral Filter Bar */}
+      {/* Search & High Contrast Filter Bar */}
       <div className="space-y-2.5">
         <div className="relative">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-slate-800 stroke-[2.5] absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search in your purchased library..."
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:bg-white focus:border-slate-400 focus:outline-none transition text-slate-900"
+            className="w-full pl-9 pr-4 py-2 bg-white border-2 border-slate-300 rounded-xl text-xs font-extrabold focus:border-[#1976D2] focus:outline-none transition text-slate-950 placeholder:text-slate-500 shadow-xs"
           />
         </div>
 
-        {/* Filter Chips - Monochrome / Neutral */}
+        {/* Filter Chips - High Contrast */}
         <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
           <button
             onClick={() => setFilterMode('all')}
-            className={`px-3 py-1 rounded-lg text-[11px] font-semibold whitespace-nowrap transition cursor-pointer ${
+            className={`px-3.5 py-1.5 rounded-xl text-[11px] font-black whitespace-nowrap transition cursor-pointer border ${
               filterMode === 'all'
-                ? 'bg-slate-900 text-white'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
+                ? 'bg-slate-950 text-white border-slate-950 shadow-xs'
+                : 'bg-slate-100 text-slate-900 hover:bg-slate-200 border-slate-300'
             }`}
           >
             All ({purchasedItems.length})
@@ -181,10 +181,10 @@ export function PurchasedView({
 
           <button
             onClick={() => setFilterMode('lifetime')}
-            className={`px-3 py-1 rounded-lg text-[11px] font-semibold whitespace-nowrap transition cursor-pointer ${
+            className={`px-3.5 py-1.5 rounded-xl text-[11px] font-black whitespace-nowrap transition cursor-pointer border ${
               filterMode === 'lifetime'
-                ? 'bg-slate-900 text-white'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
+                ? 'bg-slate-950 text-white border-slate-950 shadow-xs'
+                : 'bg-slate-100 text-slate-900 hover:bg-slate-200 border-slate-300'
             }`}
           >
             Lifelong ({lifetimeCount})
@@ -192,10 +192,10 @@ export function PurchasedView({
 
           <button
             onClick={() => setFilterMode('rent')}
-            className={`px-3 py-1 rounded-lg text-[11px] font-semibold whitespace-nowrap transition cursor-pointer ${
+            className={`px-3.5 py-1.5 rounded-xl text-[11px] font-black whitespace-nowrap transition cursor-pointer border ${
               filterMode === 'rent'
-                ? 'bg-slate-900 text-white'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
+                ? 'bg-slate-950 text-white border-slate-950 shadow-xs'
+                : 'bg-slate-100 text-slate-900 hover:bg-slate-200 border-slate-300'
             }`}
           >
             On Rent ({rentCount})
@@ -203,10 +203,10 @@ export function PurchasedView({
 
           <button
             onClick={() => setFilterMode('subscription')}
-            className={`px-3 py-1 rounded-lg text-[11px] font-semibold whitespace-nowrap transition cursor-pointer ${
+            className={`px-3.5 py-1.5 rounded-xl text-[11px] font-black whitespace-nowrap transition cursor-pointer border ${
               filterMode === 'subscription'
-                ? 'bg-slate-900 text-white'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
+                ? 'bg-slate-950 text-white border-slate-950 shadow-xs'
+                : 'bg-slate-100 text-slate-900 hover:bg-slate-200 border-slate-300'
             }`}
           >
             Monthly Sub ({subCount})
@@ -214,10 +214,10 @@ export function PurchasedView({
 
           <button
             onClick={() => setFilterMode('expired')}
-            className={`px-3 py-1 rounded-lg text-[11px] font-semibold whitespace-nowrap transition cursor-pointer ${
+            className={`px-3.5 py-1.5 rounded-xl text-[11px] font-black whitespace-nowrap transition cursor-pointer border ${
               filterMode === 'expired'
-                ? 'bg-slate-900 text-white'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200'
+                ? 'bg-slate-950 text-white border-slate-950 shadow-xs'
+                : 'bg-slate-100 text-slate-900 hover:bg-slate-200 border-slate-300'
             }`}
           >
             Expired ({expiredCount})

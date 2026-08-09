@@ -145,42 +145,42 @@ export function BookDetailsPage({
 
           {/* Right Info Section */}
           <div className="flex-1 space-y-2 w-full">
-            <span className="text-[10px] sm:text-xs font-semibold text-[#1976D2] uppercase tracking-wider bg-blue-50 px-2 py-0.5 rounded inline-block">
+            <span className="text-xs font-black text-[#1976D2] uppercase tracking-wider bg-blue-100/90 border border-blue-200 px-2.5 py-1 rounded-md inline-block">
               {book.category}
             </span>
 
-            <h1 className="text-base sm:text-xl font-bold text-slate-900 tracking-tight leading-snug line-clamp-3">
+            <h1 className="text-lg sm:text-2xl font-black text-slate-950 tracking-tight leading-snug">
               {book.title}
             </h1>
 
             {/* Rating and Reviews */}
-            <div className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
-              <div className="flex items-center gap-0.5 text-amber-500">
-                <Star className="w-3.5 h-3.5 fill-current" />
-                <span className="font-semibold text-slate-700">{rating}</span>
+            <div className="flex items-center gap-2 text-xs font-extrabold text-slate-800">
+              <div className="flex items-center gap-1 text-amber-500 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
+                <Star className="w-4 h-4 fill-amber-400" />
+                <span className="font-black text-slate-950">{rating}</span>
               </div>
               <span>•</span>
-              <span>{reviewCount} reviews</span>
+              <span className="text-slate-700 font-bold">{reviewCount} Verified Reviews</span>
             </div>
 
             {/* Publisher info */}
-            <div className="flex items-center gap-1 text-[11px] sm:text-xs text-slate-500">
-              <Building2 className="w-3.5 h-3.5" />
+            <div className="flex items-center gap-1.5 text-xs text-slate-800 font-extrabold">
+              <Building2 className="w-4 h-4 text-slate-600" />
               <span>{publisher}</span>
             </div>
 
             {/* Price & Formats display */}
             <div className="pt-2 flex flex-col gap-2">
               <div className="flex items-baseline gap-2">
-                <span className="text-lg sm:text-2xl font-bold text-slate-900">
+                <span className="text-2xl sm:text-3xl font-black text-slate-950">
                   ₹{book.buy_price}
                 </span>
                 {book.list_price > book.buy_price && (
                   <>
-                    <span className="text-xs sm:text-sm text-slate-400 line-through">
+                    <span className="text-sm sm:text-base font-bold text-slate-400 line-through">
                       ₹{book.list_price}
                     </span>
-                    <span className="text-[10px] sm:text-xs font-semibold text-green-700 bg-green-50 px-1.5 py-0.5 rounded">
+                    <span className="text-xs font-black text-emerald-800 bg-emerald-100 border border-emerald-300 px-2 py-0.5 rounded-md">
                       {Math.round((1 - book.buy_price / book.list_price) * 100)}% OFF
                     </span>
                   </>
@@ -188,31 +188,31 @@ export function BookDetailsPage({
               </div>
 
               {/* Format selection pills */}
-              <div className="flex items-center gap-1.5 pt-1">
-                <span className="text-[10px] font-bold text-slate-400 uppercase">Available Formats:</span>
+              <div className="flex items-center gap-2 pt-1">
+                <span className="text-xs font-black text-slate-700 uppercase">Formats:</span>
                 {hasPdf && (
                   <button
                     onClick={() => setReaderFormat('pdf')}
-                    className={`px-2 py-0.5 rounded text-[10px] font-bold flex items-center gap-1 border transition ${
+                    className={`px-3 py-1 rounded-lg text-xs font-black flex items-center gap-1 border-2 transition ${
                       readerFormat === 'pdf'
                         ? 'bg-[#1976D2] text-white border-[#1976D2]'
-                        : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'
+                        : 'bg-slate-100 text-slate-900 border-slate-300 hover:bg-slate-200'
                     }`}
                   >
-                    <FileText className="w-3 h-3" />
+                    <FileText className="w-3.5 h-3.5" />
                     <span>PDF</span>
                   </button>
                 )}
                 {hasHtml && (
                   <button
                     onClick={() => setReaderFormat('html')}
-                    className={`px-2 py-0.5 rounded text-[10px] font-bold flex items-center gap-1 border transition ${
+                    className={`px-3 py-1 rounded-lg text-xs font-black flex items-center gap-1 border-2 transition ${
                       readerFormat === 'html'
                         ? 'bg-[#1976D2] text-white border-[#1976D2]'
-                        : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'
+                        : 'bg-slate-100 text-slate-900 border-slate-300 hover:bg-slate-200'
                     }`}
                   >
-                    <Globe className="w-3 h-3" />
+                    <Globe className="w-3.5 h-3.5" />
                     <span>HTML / EPUB</span>
                   </button>
                 )}
@@ -228,9 +228,9 @@ export function BookDetailsPage({
             {/* Sample Button */}
             <button
               onClick={() => setIsReaderOpen(true)}
-              className="w-full border border-slate-300 hover:border-slate-400 hover:bg-slate-50 text-slate-800 font-medium rounded-lg py-2.5 px-1 text-[11px] sm:text-sm flex flex-col items-center justify-center gap-1 transition shadow-sm"
+              className="w-full border-2 border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-950 font-black rounded-xl py-3 px-1 text-xs sm:text-sm flex flex-col items-center justify-center gap-1 transition shadow-xs active-press"
             >
-              <BookOpen className="w-4 h-4 text-slate-500" />
+              <BookOpen className="w-4 h-4 text-slate-800 stroke-[2.5]" />
               <span>Sample</span>
             </button>
 
@@ -243,11 +243,11 @@ export function BookDetailsPage({
                 }
               }}
               disabled={isUnlocked}
-              className={`w-full border border-slate-300 font-medium rounded-lg py-2.5 px-1 text-[11px] sm:text-sm flex flex-col items-center justify-center gap-1 transition shadow-sm ${
-                isUnlocked ? 'bg-slate-50 text-slate-400 cursor-not-allowed opacity-70' : 'hover:border-slate-400 hover:bg-slate-50 text-slate-800'
+              className={`w-full border-2 border-slate-300 font-black rounded-xl py-3 px-1 text-xs sm:text-sm flex flex-col items-center justify-center gap-1 transition shadow-xs active-press ${
+                isUnlocked ? 'bg-slate-100 text-slate-400 cursor-not-allowed opacity-70 border-slate-200' : 'bg-white hover:bg-slate-50 text-slate-950'
               }`}
             >
-              <Clock className="w-4 h-4 text-slate-500" />
+              <Clock className="w-4 h-4 text-slate-800 stroke-[2.5]" />
               <span>Rent ₹{rentPrice}</span>
             </button>
 
@@ -260,16 +260,16 @@ export function BookDetailsPage({
                   onBuyBook(book);
                 }
               }}
-              className="w-full border border-slate-300 hover:border-slate-400 hover:bg-slate-50 text-slate-900 font-medium rounded-lg py-2.5 px-1 text-[12px] sm:text-sm flex flex-col items-center justify-center gap-0.5 transition shadow-sm"
+              className="w-full border-2 border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-50 text-slate-950 font-black rounded-xl py-3 px-1 text-xs sm:text-sm flex flex-col items-center justify-center gap-0.5 transition shadow-xs active-press"
             >
               {isUnlocked ? (
                 <>
-                  <BookOpen className="w-4 h-4 text-[#1976D2]" />
-                  <span className="text-[#1976D2] font-semibold mt-0.5">Read Now</span>
+                  <BookOpen className="w-4 h-4 text-[#1976D2] stroke-[2.5]" />
+                  <span className="text-[#1976D2] font-black">Read Now</span>
                 </>
               ) : (
                 <>
-                  <span className="font-semibold">Buy ₹{book.buy_price}</span>
+                  <span>Buy ₹{book.buy_price}</span>
                 </>
               )}
             </button>
@@ -279,10 +279,10 @@ export function BookDetailsPage({
           {!isUnlocked && (
             <button
               onClick={() => onBuyBook(book)}
-              className="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg py-3 px-6 text-sm flex items-center justify-center gap-2 transition shadow-sm"
+              className="w-full bg-[#1976D2] hover:bg-[#1565C0] text-white font-black rounded-xl py-3.5 px-6 text-sm sm:text-base flex items-center justify-center gap-2 transition shadow-md border-2 border-blue-700 active-press uppercase tracking-wider"
             >
-              <ShoppingCart className="w-4 h-4" />
-              <span>Add to Cart</span>
+              <ShoppingCart className="w-5 h-5 stroke-[2.5]" />
+              <span>Add to Cart — ₹{book.buy_price}</span>
             </button>
           )}
 

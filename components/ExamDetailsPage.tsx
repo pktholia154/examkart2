@@ -144,31 +144,31 @@ export function ExamDetailsPage({
         {/* Stats Cards (2 Cards: Total Tests & Users) */}
         <div className="grid grid-cols-2 gap-3 sm:gap-4 my-6 max-w-md">
           {/* Total Tests Card */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-3.5 sm:p-4 shadow-xs flex items-center gap-3">
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-primary-light text-primary flex items-center justify-center shrink-0">
-              <FileText className="w-5 h-5 sm:w-6 sm:h-6" />
+          <div className="bg-white rounded-2xl border-2 border-slate-300 p-3.5 sm:p-4 shadow-xs flex items-center gap-3">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-100 text-[#1976D2] border border-blue-200 flex items-center justify-center shrink-0">
+              <FileText className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.5]" />
             </div>
             <div>
-              <div className="text-base sm:text-lg font-black text-primary leading-none">
+              <div className="text-base sm:text-xl font-black text-[#1976D2] leading-none">
                 {totalTestsCount}
               </div>
-              <div className="text-xs text-slate-500 font-medium mt-1">
+              <div className="text-xs text-slate-800 font-extrabold mt-1">
                 Total Tests
               </div>
             </div>
           </div>
 
           {/* Users Card */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-3.5 sm:p-4 shadow-xs flex items-center gap-3">
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-secondary-light text-secondary flex items-center justify-center shrink-0">
-              <Users className="w-5 h-5 sm:w-6 sm:h-6" />
+          <div className="bg-white rounded-2xl border-2 border-slate-300 p-3.5 sm:p-4 shadow-xs flex items-center gap-3">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center justify-center shrink-0">
+              <Users className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.5]" />
             </div>
             <div>
-              <div className="text-base sm:text-lg font-black text-secondary leading-none">
+              <div className="text-base sm:text-xl font-black text-emerald-800 leading-none">
                 479k+
               </div>
-              <div className="text-xs text-slate-500 font-medium mt-1">
-                Users
+              <div className="text-xs text-slate-800 font-extrabold mt-1">
+                Active Users
               </div>
             </div>
           </div>
@@ -176,17 +176,17 @@ export function ExamDetailsPage({
 
         {/* "What You'll Get" Section */}
         <div className="mt-6 mb-8">
-          <h2 className="text-sm font-bold text-slate-900 mb-3">
+          <h2 className="text-sm font-black text-slate-950 mb-3 uppercase tracking-wider">
             What You&apos;ll Get
           </h2>
 
           <div className="flex items-center gap-2.5 overflow-x-auto no-scrollbar pb-1">
             <button
               onClick={() => setActiveFilter('all')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-semibold border transition ${
+              className={`px-4 py-2 rounded-xl text-xs font-black border-2 transition ${
                 activeFilter === 'all'
-                  ? 'bg-slate-900 text-white border-slate-900'
-                  : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
+                  ? 'bg-slate-950 text-white border-slate-950'
+                  : 'bg-white text-slate-900 border-slate-300 hover:border-slate-400'
               }`}
             >
               All Tests ({allTests.length})
@@ -194,49 +194,49 @@ export function ExamDetailsPage({
 
             <button
               onClick={() => setActiveFilter('exam')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-medium border transition flex items-center gap-1.5 ${
+              className={`px-4 py-2 rounded-xl text-xs font-black border-2 transition flex items-center gap-1.5 ${
                 activeFilter === 'exam'
-                  ? 'bg-primary-light text-primary border-primary/30 font-bold'
-                  : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
+                  ? 'bg-blue-100 text-[#1976D2] border-[#1976D2]'
+                  : 'bg-white text-slate-900 border-slate-300 hover:border-slate-400'
               }`}
             >
-              <span className="text-primary font-bold">{examTestsCount}</span>
+              <span className="font-black">{examTestsCount}</span>
               <span>Practice Papers</span>
             </button>
 
             <button
               onClick={() => setActiveFilter('subject')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-medium border transition flex items-center gap-1.5 ${
+              className={`px-4 py-2 rounded-xl text-xs font-black border-2 transition flex items-center gap-1.5 ${
                 activeFilter === 'subject'
-                  ? 'bg-primary-light text-primary border-primary/30 font-bold'
-                  : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
+                  ? 'bg-blue-100 text-[#1976D2] border-[#1976D2]'
+                  : 'bg-white text-slate-900 border-slate-300 hover:border-slate-400'
               }`}
             >
-              <span className="text-primary font-bold">{subjectTestsCount}</span>
+              <span className="font-black">{subjectTestsCount}</span>
               <span>Sectional Test</span>
             </button>
 
             <button
               onClick={() => setActiveFilter('chapter')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-medium border transition flex items-center gap-1.5 ${
+              className={`px-4 py-2 rounded-xl text-xs font-black border-2 transition flex items-center gap-1.5 ${
                 activeFilter === 'chapter'
-                  ? 'bg-primary-light text-primary border-primary/30 font-bold'
-                  : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
+                  ? 'bg-blue-100 text-[#1976D2] border-[#1976D2]'
+                  : 'bg-white text-slate-900 border-slate-300 hover:border-slate-400'
               }`}
             >
-              <span className="text-primary font-bold">{chapterTestsCount}</span>
+              <span className="font-black">{chapterTestsCount}</span>
               <span>Chapterwise</span>
             </button>
 
             <button
               onClick={() => setActiveFilter('paper')}
-              className={`px-3.5 py-2 rounded-xl text-xs font-medium border transition flex items-center gap-1.5 ${
+              className={`px-4 py-2 rounded-xl text-xs font-black border-2 transition flex items-center gap-1.5 ${
                 activeFilter === 'paper'
-                  ? 'bg-primary-light text-primary border-primary/30 font-bold'
-                  : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
+                  ? 'bg-blue-100 text-[#1976D2] border-[#1976D2]'
+                  : 'bg-white text-slate-900 border-slate-300 hover:border-slate-400'
               }`}
             >
-              <span className="text-primary font-bold">{previousPapersCount}</span>
+              <span className="font-black">{previousPapersCount}</span>
               <span>Previous Papers</span>
             </button>
           </div>

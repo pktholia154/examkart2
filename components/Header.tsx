@@ -29,22 +29,22 @@ export function Header({
   const [showUserDropdown, setShowUserDropdown] = useState<boolean>(false);
 
   return (
-    <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md px-4 py-3 border-b border-slate-100 flex items-center justify-between transition-all">
+    <header className="sticky top-0 z-30 bg-white/98 backdrop-blur-md px-3 sm:px-5 py-3 border-b-2 border-slate-200/90 flex items-center justify-between transition-all shadow-2xs">
       {/* Brand Identity */}
       <div className="flex items-center gap-2.5">
-        <div className="w-10 h-10 rounded-xl bg-[#1976D2] text-white flex items-center justify-center font-bold text-xl shadow-sm tracking-tight">
+        <div className="w-10 h-10 rounded-xl bg-[#1976D2] text-white flex items-center justify-center font-black text-xl shadow-md tracking-tight border border-blue-700 shrink-0">
           E
         </div>
         <div>
           <div className="flex items-center gap-1.5">
-            <h1 className="text-xl font-extrabold tracking-tight text-[#1976D2]">
+            <h1 className="text-xl sm:text-2xl font-black tracking-tight text-[#1976D2]">
               ExamKart
             </h1>
-            <span className="text-[10px] font-semibold bg-secondary-light text-secondary px-1.5 py-0.5 rounded-md border border-secondary/30">
+            <span className="text-[10px] font-black bg-amber-100 text-amber-950 px-1.5 py-0.5 rounded-md border border-amber-300">
               PRO
             </span>
           </div>
-          <p className="text-[11px] font-medium text-slate-500 tracking-wide">
+          <p className="text-[11px] font-bold text-slate-800 tracking-wide">
             Exam & Book Prep Portal
           </p>
         </div>
@@ -52,13 +52,13 @@ export function Header({
 
       {/* Action Controls */}
       <div className="flex items-center gap-2 sm:gap-3">
-        {/* Google Sign-In Button or User Profile at top right corner */}
+        {/* Google Sign-In Button or User Profile */}
         {isGoogleUser ? (
           <div className="relative">
             <button
               id="user-profile-menu-btn"
               onClick={() => setShowUserDropdown(!showUserDropdown)}
-              className="flex items-center gap-2 p-1 pl-1.5 pr-2 rounded-full hover:bg-slate-100 transition border border-slate-200 cursor-pointer"
+              className="flex items-center gap-2 p-1 pl-1.5 pr-2.5 rounded-full hover:bg-slate-100 transition border-2 border-slate-300 bg-white shadow-xs cursor-pointer"
               title={userName || userEmail || "Google Account"}
             >
               {userPhoto ? (
@@ -66,29 +66,29 @@ export function Header({
                 <img
                   src={userPhoto}
                   alt={userName || "Google User"}
-                  className="w-7 h-7 rounded-full object-cover ring-1 ring-slate-200"
+                  className="w-7 h-7 rounded-full object-cover ring-2 ring-[#1976D2]"
                   referrerPolicy="no-referrer"
                 />
               ) : (
-                <div className="w-7 h-7 rounded-full bg-[#1976D2] text-white flex items-center justify-center font-bold text-xs">
+                <div className="w-7 h-7 rounded-full bg-[#1976D2] text-white flex items-center justify-center font-black text-xs">
                   {(userName || userEmail || 'G').charAt(0).toUpperCase()}
                 </div>
               )}
-              <span className="hidden md:inline-block text-xs font-bold text-slate-800 max-w-[90px] truncate">
+              <span className="hidden md:inline-block text-xs font-extrabold text-slate-950 max-w-[100px] truncate">
                 {userName?.split(' ')[0] || 'User'}
               </span>
             </button>
 
             {/* Dropdown Menu */}
             {showUserDropdown && (
-              <div className="absolute right-0 mt-2 w-60 bg-white rounded-2xl shadow-xl border border-slate-100 py-2.5 z-50 animate-in fade-in zoom-in-95">
-                <div className="px-4 py-2 border-b border-slate-100">
-                  <div className="flex items-center gap-1.5 text-[10px] font-bold text-secondary mb-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+              <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border-2 border-slate-200 py-2.5 z-50 animate-in fade-in zoom-in-95">
+                <div className="px-4 py-2 border-b border-slate-200">
+                  <div className="flex items-center gap-1.5 text-[10px] font-black text-emerald-700 mb-1">
+                    <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
                     Signed in with Google
                   </div>
-                  <p className="font-bold text-slate-900 text-xs truncate">{userName || 'Google User'}</p>
-                  <p className="text-slate-500 text-[11px] truncate">{userEmail}</p>
+                  <p className="font-extrabold text-slate-950 text-xs truncate">{userName || 'Google User'}</p>
+                  <p className="text-slate-600 text-[11px] font-semibold truncate">{userEmail}</p>
                 </div>
 
                 <div className="px-2 pt-1">
@@ -98,9 +98,9 @@ export function Header({
                       setShowUserDropdown(false);
                       onSignOut?.();
                     }}
-                    className="w-full text-left px-3 py-2 text-rose-600 hover:bg-rose-50 rounded-xl font-semibold text-xs flex items-center gap-2 transition cursor-pointer"
+                    className="w-full text-left px-3 py-2 text-rose-700 hover:bg-rose-50 rounded-xl font-extrabold text-xs flex items-center gap-2 transition cursor-pointer"
                   >
-                    <LogOut className="w-3.5 h-3.5 text-rose-500" />
+                    <LogOut className="w-4 h-4 text-rose-600" />
                     Sign Out
                   </button>
                 </div>
@@ -112,7 +112,7 @@ export function Header({
             id="google-signin-btn"
             onClick={onGoogleSignIn}
             disabled={isSigningIn}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 active:bg-slate-100 text-slate-700 border border-slate-200/90 shadow-xs hover:shadow-sm transition-all duration-150 font-medium text-xs disabled:opacity-60 cursor-pointer"
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white hover:bg-slate-50 active:bg-slate-100 text-slate-950 border-2 border-slate-300 shadow-xs hover:shadow-sm transition-all duration-150 font-extrabold text-xs disabled:opacity-60 cursor-pointer"
             title="Sign in with Google"
           >
             <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
@@ -133,7 +133,7 @@ export function Header({
                 d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
               />
             </svg>
-            <span className="font-semibold text-slate-800 tracking-tight whitespace-nowrap">
+            <span className="font-extrabold text-slate-950 tracking-tight whitespace-nowrap">
               {isSigningIn ? 'Signing in...' : 'Sign in with Google'}
             </span>
           </button>
@@ -142,3 +142,4 @@ export function Header({
     </header>
   );
 }
+
