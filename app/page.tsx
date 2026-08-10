@@ -318,12 +318,14 @@ export default function HomePage() {
           onBack={() => setSelectedBook(null)}
           onBuyBook={(book) => handleAddBook(book, { stopPropagation: () => {} } as any)}
           onRentBook={(book) => handleAddBook(book, { stopPropagation: () => {} } as any)}
+          allBooks={books}
+          onSelectBook={(book) => setSelectedBook(book)}
         />
       ) : (
         <>
           {/* Main Single Scroll Surface Flow */}
           {activeNavTab === 'home' && (
-            <main className="max-w-7xl mx-auto space-y-2">
+            <main className="max-w-7xl mx-auto space-y-1 sm:space-y-2">
               {/* Search Bar */}
               <SearchBar
                 searchQuery={searchQuery}
@@ -338,15 +340,7 @@ export default function HomePage() {
                 onSelectCategory={setActiveCategory}
               />
 
-              {/* Promo Offer Banner */}
-              <PromoBanner
-                onEnrollClick={() => {
-                  const cgl = exams.find(e => e.id === 'exam_ssc_cgl_2024') || exams[0];
-                  if (cgl) setSelectedExam(cgl);
-                }}
-              />
-
-              {/* Trending Exams Grid (2x3 mobile, 2x4 tablet, 2x3/2x7 desktop) */}
+              {/* Trending Exams Grid */}
               <ExamsGrid
                 exams={filteredExams}
                 unlockedExamIds={unlockedExamIds}

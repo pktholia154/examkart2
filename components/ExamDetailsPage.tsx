@@ -127,7 +127,7 @@ export function ExamDetailsPage({
             <ChevronRight className="w-3.5 h-3.5 text-slate-300 shrink-0" />
             <span className="hover:text-slate-900 cursor-pointer">{exam.category}</span>
             <ChevronRight className="w-3.5 h-3.5 text-slate-300 shrink-0" />
-            <span className="text-[#1976D2] font-semibold truncate">Mock Tests</span>
+            <span className="text-[#28811f] font-semibold truncate">Mock Tests</span>
           </nav>
         </div>
 
@@ -144,30 +144,30 @@ export function ExamDetailsPage({
         {/* Stats Cards (2 Cards: Total Tests & Users) */}
         <div className="grid grid-cols-2 gap-3 sm:gap-4 my-6 max-w-md">
           {/* Total Tests Card */}
-          <div className="bg-white rounded-2xl border-2 border-slate-300 p-3.5 sm:p-4 shadow-xs flex items-center gap-3">
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-100 text-[#1976D2] border border-blue-200 flex items-center justify-center shrink-0">
-              <FileText className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.5]" />
+          <div className="bg-white rounded-2xl border border-slate-200 p-3.5 sm:p-4 shadow-xs flex items-center gap-3">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-green-50 text-[#28811f] border border-green-100 flex items-center justify-center shrink-0">
+              <FileText className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <div>
-              <div className="text-base sm:text-xl font-black text-[#1976D2] leading-none">
+              <div className="text-base sm:text-xl font-bold text-[#28811f] leading-none">
                 {totalTestsCount}
               </div>
-              <div className="text-xs text-slate-800 font-extrabold mt-1">
+              <div className="text-xs text-slate-500 font-medium mt-1">
                 Total Tests
               </div>
             </div>
           </div>
 
           {/* Users Card */}
-          <div className="bg-white rounded-2xl border-2 border-slate-300 p-3.5 sm:p-4 shadow-xs flex items-center gap-3">
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center justify-center shrink-0">
-              <Users className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.5]" />
+          <div className="bg-white rounded-2xl border border-slate-200 p-3.5 sm:p-4 shadow-xs flex items-center gap-3">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-100 flex items-center justify-center shrink-0">
+              <Users className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <div>
-              <div className="text-base sm:text-xl font-black text-emerald-800 leading-none">
+              <div className="text-base sm:text-xl font-bold text-emerald-700 leading-none">
                 479k+
               </div>
-              <div className="text-xs text-slate-800 font-extrabold mt-1">
+              <div className="text-xs text-slate-500 font-medium mt-1">
                 Active Users
               </div>
             </div>
@@ -176,17 +176,17 @@ export function ExamDetailsPage({
 
         {/* "What You'll Get" Section */}
         <div className="mt-6 mb-8">
-          <h2 className="text-sm font-black text-slate-950 mb-3 uppercase tracking-wider">
+          <h2 className="text-sm font-bold text-slate-900 mb-3 uppercase tracking-wider">
             What You&apos;ll Get
           </h2>
 
           <div className="flex items-center gap-2.5 overflow-x-auto no-scrollbar pb-1">
             <button
               onClick={() => setActiveFilter('all')}
-              className={`px-4 py-2 rounded-xl text-xs font-black border-2 transition ${
+              className={`px-4 py-2 rounded-xl text-xs font-semibold border transition ${
                 activeFilter === 'all'
-                  ? 'bg-slate-950 text-white border-slate-950'
-                  : 'bg-white text-slate-900 border-slate-300 hover:border-slate-400'
+                  ? 'bg-slate-900 text-white border-slate-900'
+                  : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
               }`}
             >
               All Tests ({allTests.length})
@@ -194,49 +194,49 @@ export function ExamDetailsPage({
 
             <button
               onClick={() => setActiveFilter('exam')}
-              className={`px-4 py-2 rounded-xl text-xs font-black border-2 transition flex items-center gap-1.5 ${
+              className={`px-4 py-2 rounded-xl text-xs font-semibold border transition flex items-center gap-1.5 cursor-pointer ${
                 activeFilter === 'exam'
-                  ? 'bg-blue-100 text-[#1976D2] border-[#1976D2]'
-                  : 'bg-white text-slate-900 border-slate-300 hover:border-slate-400'
+                  ? 'bg-green-50 text-[#28811f] border-[#28811f]'
+                  : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
               }`}
             >
-              <span className="font-black">{examTestsCount}</span>
+              <span className="font-bold">{examTestsCount}</span>
               <span>Practice Papers</span>
             </button>
 
             <button
               onClick={() => setActiveFilter('subject')}
-              className={`px-4 py-2 rounded-xl text-xs font-black border-2 transition flex items-center gap-1.5 ${
+              className={`px-4 py-2 rounded-xl text-xs font-semibold border transition flex items-center gap-1.5 cursor-pointer ${
                 activeFilter === 'subject'
-                  ? 'bg-blue-100 text-[#1976D2] border-[#1976D2]'
-                  : 'bg-white text-slate-900 border-slate-300 hover:border-slate-400'
+                  ? 'bg-green-50 text-[#28811f] border-[#28811f]'
+                  : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
               }`}
             >
-              <span className="font-black">{subjectTestsCount}</span>
+              <span className="font-bold">{subjectTestsCount}</span>
               <span>Sectional Test</span>
             </button>
 
             <button
               onClick={() => setActiveFilter('chapter')}
-              className={`px-4 py-2 rounded-xl text-xs font-black border-2 transition flex items-center gap-1.5 ${
+              className={`px-4 py-2 rounded-xl text-xs font-semibold border transition flex items-center gap-1.5 cursor-pointer ${
                 activeFilter === 'chapter'
-                  ? 'bg-blue-100 text-[#1976D2] border-[#1976D2]'
-                  : 'bg-white text-slate-900 border-slate-300 hover:border-slate-400'
+                  ? 'bg-green-50 text-[#28811f] border-[#28811f]'
+                  : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
               }`}
             >
-              <span className="font-black">{chapterTestsCount}</span>
+              <span className="font-bold">{chapterTestsCount}</span>
               <span>Chapterwise</span>
             </button>
 
             <button
               onClick={() => setActiveFilter('paper')}
-              className={`px-4 py-2 rounded-xl text-xs font-black border-2 transition flex items-center gap-1.5 ${
+              className={`px-4 py-2 rounded-xl text-xs font-semibold border transition flex items-center gap-1.5 cursor-pointer ${
                 activeFilter === 'paper'
-                  ? 'bg-blue-100 text-[#1976D2] border-[#1976D2]'
-                  : 'bg-white text-slate-900 border-slate-300 hover:border-slate-400'
+                  ? 'bg-green-50 text-[#28811f] border-[#28811f]'
+                  : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
               }`}
             >
-              <span className="font-black">{previousPapersCount}</span>
+              <span className="font-bold">{previousPapersCount}</span>
               <span>Previous Papers</span>
             </button>
           </div>

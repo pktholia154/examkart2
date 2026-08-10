@@ -15,25 +15,25 @@ export function SearchBar({
   activeCategory
 }: SearchBarProps) {
   return (
-    <div className="px-2 sm:px-4 pt-3 pb-1">
+    <div className="px-2 sm:px-4 pt-2 sm:pt-3 pb-0.5">
       <div className="relative flex items-center">
-        <Search className="absolute left-3.5 w-4 h-4 text-slate-800 stroke-[2.5] pointer-events-none" />
+        <Search className="absolute left-3.5 w-4 h-4 text-slate-400 pointer-events-none" />
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          placeholder={`Search ${activeCategory !== 'All' ? activeCategory : ''} exams, test series, books...`}
-          className="w-full pl-10 pr-10 py-2.5 bg-white border-2 border-slate-300 rounded-xl text-xs sm:text-sm text-slate-950 placeholder:text-slate-500 placeholder:font-semibold focus:outline-none focus:ring-2 focus:ring-[#1976D2]/20 focus:border-[#1976D2] transition-all font-bold shadow-xs"
+          placeholder={`Search ${activeCategory !== 'All' ? activeCategory : ''} exams, test series, books, authors...`}
+          className="w-full pl-10 pr-10 py-2.5 bg-slate-50 border border-slate-200/90 rounded-xl text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#28811f]/20 focus:border-[#28811f] transition-all font-normal"
         />
         {searchQuery ? (
           <button
             onClick={() => onSearchChange('')}
-            className="absolute right-3 p-1 rounded-full text-slate-600 hover:text-slate-950 hover:bg-slate-200 transition"
+            className="absolute right-3 p-1 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-200/50 transition"
           >
-            <X className="w-4 h-4 stroke-[2.5]" />
+            <X className="w-4 h-4" />
           </button>
         ) : (
-          <SlidersHorizontal className="absolute right-3.5 w-4 h-4 text-slate-700 stroke-[2.2] pointer-events-none" />
+          <SlidersHorizontal className="absolute right-3.5 w-4 h-4 text-slate-400 pointer-events-none" />
         )}
       </div>
     </div>

@@ -20,18 +20,13 @@ const nextConfig: NextConfig = {
   },
   output: 'standalone',
   transpilePackages: ['motion'],
-  webpack: (config, {dev}) => {
+  webpack: (config) => {
     config.resolve = config.resolve || {};
     config.resolve.fallback = {
       ...config.resolve.fallback,
       canvas: false,
       fs: false,
     };
-    if (dev && process.env.DISABLE_HMR === 'true') {
-      config.watchOptions = {
-        ignored: /.*/,
-      };
-    }
     return config;
   },
 };

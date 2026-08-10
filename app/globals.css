@@ -3,34 +3,32 @@
 
 @layer base {
   :root {
-    /* Universally controllable global color theme tokens */
-    --color-primary: #1976D2;
-    --color-primary-hover: #1565C0;
-    --color-primary-light: #E3F2FD;
-    --color-primary-dark: #0D47A1;
+    /* Universally controllable global color theme tokens - Green as Primary */
+    --color-primary: #28811f;
+    --color-primary-hover: #1e6918;
+    --color-primary-light: #e8f5e9;
+    --color-primary-dark: #165212;
 
-    --color-secondary: #16a34a;
-    --color-secondary-hover: #15803d;
-    --color-secondary-light: #dcfce7;
-    --color-secondary-dark: #14532d;
+    --color-secondary: #2e7d32;
+    --color-secondary-hover: #1b5e20;
+    --color-secondary-light: #E8F5E9;
+    --color-secondary-dark: #1b5e20;
 
-    --color-tertiary: #f59e0b;
-    --color-tertiary-hover: #d97706;
-    --color-tertiary-light: #fef3c7;
-    --color-tertiary-dark: #78350f;
+    --color-tertiary: #F8CB46;
+    --color-tertiary-hover: #F7BF1E;
+    --color-tertiary-light: #FEF9E7;
+    --color-tertiary-dark: #C69200;
 
     --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   }
 
   html, body {
-    background-color: #f8fafc !important;
-    color: #020617;
+    background-color: #ffffff !important;
+    color: #0f172a;
     font-family: var(--font-sans);
     -webkit-tap-highlight-color: transparent;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
-    text-rendering: optimizeLegibility;
   }
 }
 

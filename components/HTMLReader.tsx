@@ -118,7 +118,7 @@ export default function HTMLReader({
         if (firestoreBuyPrice) setBookBuyPrice(firestoreBuyPrice);
       }
 
-      const fetchEndpoint = `/app/api/html?bookId=${encodeURIComponent(decodedBookId)}&type=${readType}&url=${encodeURIComponent(targetHtmlUrl)}`;
+      const fetchEndpoint = `/api/html?bookId=${encodeURIComponent(decodedBookId)}&type=${readType}&url=${encodeURIComponent(targetHtmlUrl)}`;
 
       try {
         const response = await fetch(fetchEndpoint);
