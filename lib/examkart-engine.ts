@@ -170,7 +170,7 @@ export async function fetchCategories(): Promise<ExamCategory[]> {
 export async function fetchExams(categoryName?: string): Promise<ExamItem[]> {
   try {
     let q;
-    if (categoryName && categoryName !== "All") {
+    if (categoryName && categoryName.toLowerCase() !== "all") {
       q = query(
         collection(db, "exams"),
         where("category", "==", categoryName),
@@ -192,7 +192,7 @@ export async function fetchExams(categoryName?: string): Promise<ExamItem[]> {
   }
 
   const cached = getLocalCache<ExamItem[]>("exams") || INITIAL_EXAMS;
-  if (categoryName && categoryName !== "All") {
+  if (categoryName && categoryName.toLowerCase() !== "all") {
     return cached.filter(e => e.category.toLowerCase() === categoryName.toLowerCase() && e.isActive);
   }
   return cached.filter(e => e.isActive);
@@ -204,7 +204,7 @@ export async function fetchExams(categoryName?: string): Promise<ExamItem[]> {
 export async function fetchBooks(categoryName?: string): Promise<BookItem[]> {
   try {
     let q;
-    if (categoryName && categoryName !== "All") {
+    if (categoryName && categoryName.toLowerCase() !== "all") {
       q = query(
         collection(db, "books"),
         where("category", "==", categoryName),
@@ -224,7 +224,7 @@ export async function fetchBooks(categoryName?: string): Promise<BookItem[]> {
   }
 
   const cached = getLocalCache<BookItem[]>("books") || INITIAL_BOOKS;
-  if (categoryName && categoryName !== "All") {
+  if (categoryName && categoryName.toLowerCase() !== "all") {
     return cached.filter(b => b.category.toLowerCase() === categoryName.toLowerCase() && b.isActive);
   }
   return cached.filter(b => b.isActive);
@@ -236,7 +236,7 @@ export async function fetchBooks(categoryName?: string): Promise<BookItem[]> {
 export async function fetchBundles(categoryName?: string): Promise<BundleItem[]> {
   try {
     let q;
-    if (categoryName && categoryName !== "All") {
+    if (categoryName && categoryName.toLowerCase() !== "all") {
       q = query(
         collection(db, "bundles"),
         where("category", "==", categoryName),
@@ -256,7 +256,7 @@ export async function fetchBundles(categoryName?: string): Promise<BundleItem[]>
   }
 
   const cached = getLocalCache<BundleItem[]>("bundles") || INITIAL_BUNDLES;
-  if (categoryName && categoryName !== "All") {
+  if (categoryName && categoryName.toLowerCase() !== "all") {
     return cached.filter(b => b.category.toLowerCase() === categoryName.toLowerCase() && b.isActive);
   }
   return cached.filter(b => b.isActive);
